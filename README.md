@@ -95,13 +95,13 @@ HMACSHA512(
 
 ### Refresh Token
 **Header**
-```json
+```
 {
   "alg": "HS512"
 }
 ```
 **PAYLOAD**
-```json
+```
 {
   "exp": token_expire_time,
   "sub": "[email]",
@@ -438,6 +438,91 @@ Token ID가 같은 토큰 쌍만 재발급이 가능합니다.
     "data": "OK"
   }
   ```
+
+# AdminController
+## Endpoints
+## 1. 회원 정보 조회
+
+- **URL:** `/api/admin/members`
+- **Method:** `GET`
+- **Request Parameters:**
+
+  | Parameter | Description | Required | Default |
+  | --- | --- | --- | --- |
+  | page | Page number | Optional | 0 |
+  | size | Number of members per page | Optional | 10 |
+
+- **Success Response:** (HTTP Status 200)
+
+```json
+  {
+    "httpStatus": "OK",
+    "data": "<PageDto<MemberInfo>>"
+  }
+```
+
+## 2. 특정 회원 정보 조회
+
+- **URL:** `/api/admin/member`
+- **Method:** `GET`
+- **Request Parameters:**
+
+  | Parameter | Description | 
+  | --- | --- |
+  | email | Email of the member to retrieve |
+
+- **Success Response:** (HTTP Status 200)
+
+```json
+  {
+    "httpStatus": "OK",
+    "data": "<MemberInfo>"
+  }
+```
+
+## 3. 권한 종류 조회
+
+- **URL:** `/api/admin/roles`
+- **Method:** `GET`
+- **Success Response:** (HTTP Status 200)
+
+```json
+  {
+    "httpStatus": "OK",
+    "data": "<RoleInfo>"
+  }
+```
+- 서버에 어떤 권한이 있는지 조회합니다.
+
+## 4. 회원 권한 수정
+
+- **URL:** `/api/admin/member/role`
+- **Method:** `POST`
+- **RequestBody:**
+
+```json
+  {
+    "email": "<Member email>",
+    "role": "<Role>",
+    "action": "<Action>"
+  }
+```
+
+| Parameter | Description | 
+| --- | --- |
+| email | Email of the member to Modify Role |
+| role  | role to add or remove |
+| action | `ADD_ROLE` or `REMOVE_ROLE` |
+
+- **Success Response:** (HTTP Status 200)
+
+```json
+  {
+    "httpStatus": "OK",
+    "data": "OK"
+  }
+```
+
 
 # Response Status Code
 ## 응답 JSON 형식
