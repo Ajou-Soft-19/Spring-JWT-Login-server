@@ -57,6 +57,7 @@ public class LoginService {
                 .email(memberCreateDto.getEmail())
                 .password(passwordEncoder.encode(memberCreateDto.getPassword()))
                 .username(memberCreateDto.getUsername())
+                .phoneNumber(memberCreateDto.getPhoneNumber())
                 .build();
 
         return memberRepository.save(member);
@@ -141,6 +142,12 @@ public class LoginService {
         return member;
     }
 
+    public Member updatePhoneNumber(String email, String phoneNumber) {
+        Member member = findMemberByEmail(email);
+        member.updatePhoneNumber(phoneNumber);
+        return member;
+    }
+
     public void updatePassword(String email, String newPassword, String oldPassword) {
         checkPasswordStrength(newPassword);
 
@@ -175,6 +182,7 @@ public class LoginService {
         HashMap<String, String> map = new HashMap<>();
         map.put("username", member.getUsername());
         map.put("email", member.getEmail());
+        map.put("phoneNumber", member.getPhoneNumber());
         map.put("profileImageUrl", member.getProfileImageUri());
         return map;
     }

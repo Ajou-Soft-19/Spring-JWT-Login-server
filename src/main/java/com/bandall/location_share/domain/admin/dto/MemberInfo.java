@@ -22,6 +22,8 @@ public class MemberInfo {
 
     private String username;
 
+    private String phoneNumber;
+
     private String profileImageUri;
 
     private String roles;
@@ -34,6 +36,7 @@ public class MemberInfo {
         this.email = member.getEmail();
         this.isEmailVerified = member.isEmailVerified();
         this.username = member.getUsername();
+        this.phoneNumber = member.getPhoneNumber();
         this.profileImageUri = member.getProfileImageUri();
         this.roles = member.getRoles();
         this.lastLoginTime = member.getLastLoginTime();

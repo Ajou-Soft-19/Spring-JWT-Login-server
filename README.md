@@ -47,24 +47,32 @@
 # API 명세서
 
 1. [JWT 토큰](#JWT-토큰)
-  - [1.1 Access Token](#access-token)
-  - [1.2 Refresh Token](#refresh-token)
+   - [1.1 Access Token](#access-token)
+   - [1.2 Refresh Token](#refresh-token)
 2. [LoginController](#logincontroller)
-  - [2.1. 계정 생성](#1-계정-생성)
-  - [2.2. Email, Password 로그인](#2-email-password-로그인)
-  - [2.3. Access 토큰 재발급](#3-access-토큰-재발급)
-  - [2.4. 로그아웃](#4-로그아웃)
-  - [2.5. 유저 이름 변경](#5-유저-이름-변경)
-  - [2.6. 비밀번호 변경](#6-비밀번호-변경)
-  - [2.7. 계정 삭제](#7-계정-삭제)
-  - [2.8. 이메일 인증 코드 발급](#8-이메일-인증-코드-발급)
-  - [2.9. 이메일 인증 코드 제출](#9-이메일-인증-코드-제출)
+   - [2.1. 계정 생성](#1-계정-생성)
+   - [2.2. Email, Password 로그인](#2-email-password-로그인)
+   - [2.3. Access 토큰 재발급](#3-access-토큰-재발급)
+   - [2.4. 로그아웃](#4-로그아웃)
+   - [2.5. 유저 이름 변경](#5-유저-이름-변경)
+   - [2.6. 전화번호 변경](#6-전화번호-변경)
+   - [2.7. 비밀번호 변경](#7-비밀번호-변경)
+   - [2.8. 계정 삭제](#8-계정-삭제)
+   - [2.9. 이메일 인증 코드 발급](#9-이메일-인증-코드-발급)
+   - [2.10. 이메일 인증 코드 제출](#10-이메일-인증-코드-제출)
+   - [2.11. 비밀번호 재설정 이메일 코드 발급](#11-비밀번호-재설정-이메일-코드-발급)
+   - [2.12. 비밀번호 재설정](#12-비밀번호-재설정)
 3. [OAuthController](#oauthcontroller)
-  - [3.1. 소셜 로그인](#1-소셜-로그인)
-  - [3.2. 계정 삭제](#2-계정-삭제)
-4. [Response Status Code](#response-status-code)
-  - [응답 JSON 형식](#응답-json-형식)
-  - [코드 정보](#코드-정보)
+   - [3.1. 소셜 로그인](#1-소셜-로그인)
+   - [3.2. 계정 삭제](#2-계정-삭제)
+4. [AdminController](#admincontroller)
+   - [4.1. 회원 정보 조회](#1-회원-정보-조회)
+   - [4.2. 특정 회원 정보 조회](#2-특정-회원-정보-조회)
+   - [4.3. 권한 종류 조회](#3-권한-종류-조회)
+   - [4.4. 회원 권한 수정](#4-회원-권한-수정)
+5. [Response Status Code](#response-status-code)
+   - [5.1. 응답 JSON 형식](#응답-json-형식)
+   - [5.2. 코드 정보](#코드-정보)
 
 # JWT 토큰
 ## 기본 구조
@@ -265,7 +273,35 @@ Token ID가 같은 토큰 쌍만 재발급이 가능합니다.
   }
   ```
 
-### 6. 비밀번호 변경
+### 6. 전화번호 변경
+
+- **URL:** `/api/account/update-phoneNumber`
+- **Method:** `POST`
+- **Headers:**
+
+  - `Authorization:` `Bearer [access_token_string]`
+- **RequestBody:**
+
+  ```json
+  {
+    "phoneNumber": "[new_phoneNumber]"
+  }
+  ```
+
+- **Success Response:** (HTTP Status 200)
+
+  ```json
+  {
+    "httpStatus": "OK",
+    "code": 200,
+    "data": {
+        "email": "[email]",
+        "phoneNumber": "[new_phoneNumber]"
+    }
+  }
+  ```
+
+### 7. 비밀번호 변경
 
 - **URL:** `/api/account/update-password`
 - **Method:** `POST`
@@ -291,7 +327,7 @@ Token ID가 같은 토큰 쌍만 재발급이 가능합니다.
   }
   ```
 
-### 7. 계정 삭제
+### 8. 계정 삭제
 
 - **URL:** `/api/account/delete`
 - **Method:** `POST`
@@ -316,7 +352,7 @@ Token ID가 같은 토큰 쌍만 재발급이 가능합니다.
   }
   ```
 
-### 8. 이메일 인증 코드 발급
+### 9. 이메일 인증 코드 발급
 
 - **URL:** `/api/email-verification?email=[email]`
 - **Method:** `GET`
@@ -331,7 +367,7 @@ Token ID가 같은 토큰 쌍만 재발급이 가능합니다.
   }
   ```
 
-### 9. 이메일 인증 코드 제출
+### 10. 이메일 인증 코드 제출
 
 - **URL:** `/api/email-verification`
 - **Method:** `POST`
@@ -354,7 +390,7 @@ Token ID가 같은 토큰 쌍만 재발급이 가능합니다.
   }
   ```
 
-### 10. 비밀번호 재설정 이메일 코드 발급
+### 11. 비밀번호 재설정 이메일 코드 발급
 
 - **URL:** `/api/account/find-password?email=[email]`
 - **Method:** `GET`
@@ -368,7 +404,7 @@ Token ID가 같은 토큰 쌍만 재발급이 가능합니다.
   }
   ```
 
-### 11. 비밀번호 재설정
+### 12. 비밀번호 재설정
 
 - **URL:** `/api/account/find-password`
 - **Method:** `POST`
@@ -447,10 +483,10 @@ Token ID가 같은 토큰 쌍만 재발급이 가능합니다.
 - **Method:** `GET`
 - **Request Parameters:**
 
-  | Parameter | Description | Required | Default |
-  | --- | --- | --- | --- |
-  | page | Page number | Optional | 0 |
-  | size | Number of members per page | Optional | 10 |
+| Parameter | Description                | Required | Default |
+|-----------|----------------------------|----------|---------|
+| page      | Page number                | Optional | 0       |
+| size      | Number of members per page | Optional | 10      |
 
 - **Success Response:** (HTTP Status 200)
 
@@ -467,9 +503,9 @@ Token ID가 같은 토큰 쌍만 재발급이 가능합니다.
 - **Method:** `GET`
 - **Request Parameters:**
 
-  | Parameter | Description | 
-  | --- | --- |
-  | email | Email of the member to retrieve |
+| Parameter | Description                     | 
+|-----------|---------------------------------|
+| email     | Email of the member to retrieve |
 
 - **Success Response:** (HTTP Status 200)
 
@@ -508,11 +544,11 @@ Token ID가 같은 토큰 쌍만 재발급이 가능합니다.
   }
 ```
 
-| Parameter | Description | 
-| --- | --- |
-| email | Email of the member to Modify Role |
-| role  | role to add or remove |
-| action | `ADD_ROLE` or `REMOVE_ROLE` |
+| Parameter | Description                        | 
+|-----------|------------------------------------|
+| email     | Email of the member to Modify Role |
+| role      | role to add or remove              |
+| action    | `ADD_ROLE` or `REMOVE_ROLE`        |
 
 - **Success Response:** (HTTP Status 200)
 

@@ -28,6 +28,7 @@ public class LoginController {
     private static final String EMAIL_KEY = "email";
     private static final String USERNAME_KEY = "username";
     private static final String PASSWORD_KEY = "password";
+    private static final String PHONE_NUMBER_KEY = "phoneNumber";
     private static final String REFRESH_TOKEN_KEY = "refreshToken";
     private static final String AUTH_HEADER_KEY = "Authorization";
     private final LoginService loginService;
@@ -47,7 +48,8 @@ public class LoginController {
         return new ApiResponseJson(HttpStatus.OK, Map.of(
                 LOGIN_TYPE_KEY, member.getLoginType(),
                 EMAIL_KEY, member.getEmail(),
-                USERNAME_KEY, member.getUsername()
+                USERNAME_KEY, member.getUsername(),
+                PHONE_NUMBER_KEY, member.getPhoneNumber()
         ));
     }
 
@@ -94,6 +96,7 @@ public class LoginController {
         return new ApiResponseJson(HttpStatus.OK, ControllerMessage.LOGOUT_MSG);
     }
 
+    // TODO: 회원 정보를 수정할 수 있는 공통 API로 변경
     @PostMapping("/api/account/update-username")
     public ApiResponseJson updateUsername(@RequestBody MemberUpdateDto memberUpdateDto, @AuthenticationPrincipal UserPrinciple user) {
         log.info("Received request to update username for account: {}", user.getEmail());
@@ -109,6 +112,24 @@ public class LoginController {
         return new ApiResponseJson(HttpStatus.OK, Map.of(
                 EMAIL_KEY, updatedMember.getEmail(),
                 USERNAME_KEY, updatedMember.getUsername()
+        ));
+    }
+
+    @PostMapping("/api/account/update-phoneNumber")
+    public ApiResponseJson updatePhoneNumber(@RequestBody MemberUpdateDto memberUpdateDto, @AuthenticationPrincipal UserPrinciple user) {
+        log.info("Received request to update phoneNumber for account: {}", user.getEmail());
+        String phoneNumber = memberUpdateDto.getPhoneNumber();
+        if (!StringUtils.hasText(phoneNumber)) {
+            log.info("Invalid phoneNumber update request: new phoneNumber is missing");
+            throw new IllegalArgumentException(ControllerMessage.WRONG_REQUEST_ERROR_MSG);
+        }
+
+        Member updatedMember = loginService.updatePhoneNumber(user.getEmail(), phoneNumber);
+        log.info("PhoneNumber updated for account: {}", updatedMember.getPhoneNumber());
+
+        return new ApiResponseJson(HttpStatus.OK, Map.of(
+                EMAIL_KEY, updatedMember.getEmail(),
+                PHONE_NUMBER_KEY, updatedMember.getPhoneNumber()
         ));
     }
 

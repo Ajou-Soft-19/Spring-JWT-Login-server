@@ -4,6 +4,7 @@ import lombok.ToString;
 
 import java.util.Map;
 
+// TODO: 카카오 소셜 로그인 전화번호 받아오기
 public class KakaoUserInfo extends OAuth2UserInfo {
     private Long oAuth2Id;
 

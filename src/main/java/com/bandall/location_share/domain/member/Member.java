@@ -44,17 +44,21 @@ public class Member extends BaseTimeEntity {
     @Column(length = 255)
     private String profileImageUri;
 
+    @Column(length = 30)
+    private String phoneNumber;
+
     private String roles;
 
     private LocalDateTime lastLoginTime;
 
     @Builder
-    public Member(LoginType loginType, String email, String password, String username) {
+    public Member(LoginType loginType, String email, String password, String username, String phoneNumber) {
         this.loginType = loginType;
         this.email = email;
         this.isEmailVerified = false;
         this.password = password;
         this.username = username;
+        this.phoneNumber = phoneNumber;
         this.roles = Role.ROLE_USER.getRoleName();
     }
 
@@ -76,6 +80,10 @@ public class Member extends BaseTimeEntity {
 
     public void updateEmailVerified(boolean EmailVerified) {
         this.isEmailVerified = EmailVerified;
+    }
+
+    public void updatePhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void updateLastLoginTime() {

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberUpdateDto {
     public String username;
+    public String phoneNumber;
     public String oldPassword;
     public String newPassword;
 }
