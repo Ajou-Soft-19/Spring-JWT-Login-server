@@ -136,7 +136,8 @@ HMACSHA512(
   {
     "email" : "[email]",
     "password": "[password]",
-    "username" : "[username]"
+    "username" : "[username]",
+    "phoneNumber": "[phoneNumber]"
   }
   ```
 
@@ -149,7 +150,8 @@ HMACSHA512(
     "data": {
         "loginType": "EMAIL_PW",
         "username": "[username]",
-        "email": "[email]"
+        "email": "[email]",
+        "phoneNumber": "[phoneNumber]"
     }
   }
   ```
