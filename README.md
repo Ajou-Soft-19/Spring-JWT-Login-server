@@ -74,6 +74,7 @@
    - [5.1. 응답 JSON 형식](#응답-json-형식)
    - [5.2. 코드 정보](#코드-정보)
 
+
 # JWT 토큰
 ## 기본 구조
 ### Access Token
@@ -491,10 +492,39 @@ Token ID가 같은 토큰 쌍만 재발급이 가능합니다.
 - **Success Response:** (HTTP Status 200)
 
 ```json
-  {
-    "httpStatus": "OK",
-    "data": "<PageDto<MemberInfo>>"
+{
+  "httpStatus": "OK",
+  "code": 200,
+  "data": {
+    "elements": [
+      {
+        "id": 1,
+        "loginType": "EMAIL_PW",
+        "email": "[email]",
+        "username": "[username]",
+        "phoneNumber": "[phoneNumber]",
+        "profileImageUri": "[profileImageUri]",
+        "roles": "[roles]",
+        "lastLoginTime": "[lastLoginTime]",
+        "emailVerified": "[emailVerified]"
+      },
+      {
+        "id": 2,
+        "loginType": "EMAIL_PW",
+        "email": "[email]",
+        "username": "[username]",
+        "phoneNumber": "[phoneNumber]",
+        "profileImageUri": "[profileImageUri]",
+        "roles": "[roles]",
+        "lastLoginTime": "[lastLoginTime]",
+        "emailVerified": "[emailVerified]"
+      }
+    ],
+    "curPage": 0,
+    "totalPage": 1,
+    "totalElements": 2
   }
+}
 ```
 
 ## 2. 특정 회원 정보 조회
@@ -510,10 +540,21 @@ Token ID가 같은 토큰 쌍만 재발급이 가능합니다.
 - **Success Response:** (HTTP Status 200)
 
 ```json
-  {
+{
     "httpStatus": "OK",
-    "data": "<MemberInfo>"
-  }
+    "code": 200,
+    "data": {
+          "id": 2,
+          "loginType": "EMAIL_PW",
+          "email": "[email]",
+          "username": "[username]",
+          "phoneNumber": "[phoneNumber]",
+          "profileImageUri": "[profileImageUri]",
+          "roles": "[roles]",
+          "lastLoginTime": "[lastLoginTime]",
+          "emailVerified": "[emailVerified]"
+    }
+}
 ```
 
 ## 3. 권한 종류 조회
@@ -523,10 +564,18 @@ Token ID가 같은 토큰 쌍만 재발급이 가능합니다.
 - **Success Response:** (HTTP Status 200)
 
 ```json
-  {
-    "httpStatus": "OK",
-    "data": "<RoleInfo>"
+{
+  "httpStatus": "OK",
+  "code": 200,
+  "data": {
+    "roles": [
+      "ROLE_USER",
+      "ROLE_EMERGENCY_VEHICLE",
+      "ROLE_ANONYMOUS",
+      "ROLE_ADMIN"
+    ]
   }
+}
 ```
 - 서버에 어떤 권한이 있는지 조회합니다.
 
