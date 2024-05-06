@@ -61,7 +61,8 @@ public class BasicLoginTest {
         String email = "abc@gmail.com";
         String password = "12345aa6!";
         String username = "bandallgom";
-        MemberCreateDto memberCreateDto = new MemberCreateDto(email, password, username);
+        String phoneNumber = "010-1234-5678";
+        MemberCreateDto memberCreateDto = new MemberCreateDto(email, password, username, phoneNumber);
 
         // when
         loginService.createMember(memberCreateDto);
@@ -278,7 +279,7 @@ public class BasicLoginTest {
     }
 
     private void addMember(String email, String password, String username, boolean setEmailVerified) {
-        MemberCreateDto memberCreateDto = new MemberCreateDto(email, password, username);
+        MemberCreateDto memberCreateDto = new MemberCreateDto(email, password, username, "010-1234-5678");
         loginService.createMember(memberCreateDto);
 
         if (setEmailVerified) setEmailVerified(email);
